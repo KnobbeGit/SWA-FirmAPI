@@ -1,0 +1,76 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.3.19/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('my-connection-string')",
+    "options": {
+      "set-session-context": false
+    }
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": true
+    },
+    "graphql": {
+      "enabled": true,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": [],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "StaticWebApps"
+      },
+      "mode": "development"
+    }
+  },
+  "entities": {
+    "vwWorkspace": {
+      "source": {
+        "object": "dbo.vwWorkspace",
+        "type": "view",
+        "key-fields": [
+          "Id"
+        ]
+      },
+      "graphql": {
+        "enabled": true,
+        "type": {
+          "singular": "vwWorkspace",
+          "plural": "vwWorkspaces"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/vwWorkspace"
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ],
+      "mappings": {
+        "create_date": "create_date",
+        "cursorId": "cursorId",
+        "Default_Security": "Default_Security",
+        "Id": "Id",
+        "IsUser": "IsUser",
+        "IsValid": "IsValid",
+        "Message": "Message",
+        "SyncedOn": "SyncedOn",
+        "WorkspaceId": "WorkspaceId",
+        "WorkspaceName": "WorkspaceName"
+      }
+    }
+  }
+}
